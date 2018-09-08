@@ -298,18 +298,26 @@ $(document).on('click', '#ready_agregar_op', function(){
 });
 
 function mouseMoved() {
-    varXMouse = "x: " + parseInt((mouseX - posEjeX) / escalaCanvas);
-    varYMouse = "y: " + - (parseInt((mouseY - posEjeY) / escalaCanvas));
-    $("#coords p:first-child").text(varXMouse);
-    $("#coords p:last-child").text(varYMouse);
+    if (($('#barra_lateral').is(':hover')) || ($('#barra_inferior').is(':hover'))) {
+        
+    } else {
+        varXMouse = "x: " + parseInt((mouseX - posEjeX) / escalaCanvas);
+        varYMouse = "y: " + - (parseInt((mouseY - posEjeY) / escalaCanvas));
+        $("#coords p:first-child").text(varXMouse);
+        $("#coords p:last-child").text(varYMouse);
+    }
 }
 
 function mouseDragged(ctx) {
-    posEjeX += ctx.movementX;
-    posEjeY += ctx.movementY;
-    inicioXGrid += ctx.movementX;
-    inicioYGrid += ctx.movementY;
-    redraw();
+    if (($('#barra_lateral').is(':hover')) || ($('#barra_inferior').is(':hover'))) {
+        
+    } else {
+        posEjeX += ctx.movementX;
+        posEjeY += ctx.movementY;
+        inicioXGrid += ctx.movementX;
+        inicioYGrid += ctx.movementY;
+        redraw();
+    }
 }
 
 /*function mouseWheel(event) {
