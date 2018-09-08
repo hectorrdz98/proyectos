@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Unidad I - Vectores - v2</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" type="image/x-icon" href="recursos/icon.jpg">
+    <script src="jquery.js"></script>
+    <script src="p5.js"></script>
+  </head>
+  <body>
+      <div id="cont_bl">
+          <div id="barra_lateral">
+              <div id="titulo_bl">
+                  <p>Bitacora</p>
+              </div>
+              <div id="nombre_archivo_bl">
+                  <p>"sin-nombre.minig"</p>
+              </div>
+              <div id="separador_bl"></div>
+              <div id="contenido_bl">
+                  <!--div class="element_bl">
+                      <p class="nombreV_elem">A:</p>
+                      <div class="cont_elem">
+                          <div class="subcont_elem">
+                              <div class="color_elem"></div>
+                              <p>Las componentes son: </p>
+                              <p class="comp_elem">(a, b)</p>
+                          </div>
+                          <div class="cont_svg_elem">
+                              <svg class="flecha_elem" width="10" height="5">
+                                  <line x1="0" y1="0" x2="5" y2="5" style="stroke-width: 1"/>
+                                  <line x1="10" y1="0" x2="5" y2="5" style="stroke-width: 1"/>
+                              </svg>
+                          </div>
+                      </div>
+                      <div class="cont_detalles_elem" id="prueba">
+                          <div class="subcont_detalles_elem">
+                              <p>Punto inicial: </p>
+                              <p class="comp_elem">(a, b)</p>
+                          </div>
+                          <div class="subcont_detalles_elem">
+                              <p>Punto final: </p>
+                              <p class="comp_elem">(a, b)</p>
+                          </div>
+                          <div class="subcont_detalles_elem">
+                              <p>Magnitud: </p>
+                              <p class="comp_elem">n</p>
+                          </div>
+                          <div class="subcont_detalles_elem">
+                              <p>Dirección: </p>
+                              <p class="comp_elem">0</p>
+                          </div>
+                      </div>
+                  </div-->
+              </div>
+              <!--div id="agregar_operacion_input_bl">
+                  <div id="cont_input_agregar_op">
+                      <input type="text" placeholder="Ingrese la operación aquí..."/>
+                      <div></div>
+                  </div>
+              </div-->
+              <div id="agregar_operacion_bl">
+                  <div id="cont_btn_agregar_op">
+                      <p>Agregar operación</p>
+                  </div>
+              </div>
+          </div>
+          <div id="btn_ocultar_bl">
+              <svg width="20" height="20" class="pleft">
+                  <line x1="10" y1="0" x2="0" y2="10" style="stroke: rgb(255,255,255); stroke-width: 1.5"/>
+                  <line x1="10" y1="20" x2="0" y2="10" style="stroke: rgb(255,255,255); stroke-width: 1.5"/>
+              </svg>
+          </div>
+      </div>
+      <div id="area_principal">
+          <!--canvas id="myCanvas" width="2000" height="2000"></canvas-->
+      </div>
+      <div id="barra_inferior">
+          <div id="opciones_bi">
+              <input id="agregarVector" type="submit" value="Agregar">
+          </div>
+          <div id="detalles_bi">
+              <div id="selec_color">
+                  <input id="color_box" onchange="cambioColor(this)" type="color" value="#7fffd4"/>
+              </div>
+              <input id="valNombreinput" type="text" placeholder="Nombre del vector..."/>
+              (<input id="valX1input" class="addVInput" type="number" placeholder="x1"/>,
+              <input id="valY1input" class="addVInput" type="number" placeholder="y1"/>)
+              (<input id="valX2input" class="addVInput" type="number" placeholder="x2"/>,
+              <input id="valY2input" class="addVInput" type="number" placeholder="y2"/>)
+          </div>
+          <div id="coords">
+              <p>x: 0</p>
+              <p>y: 0</p>
+          </div>
+      </div>
+  </body>
+    <script src="script.js"></script>
+</html>
