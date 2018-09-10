@@ -298,7 +298,7 @@ $(document).on('click', '#ready_agregar_op', function(){
 });
 
 function mouseMoved() {
-    if (($('#barra_lateral').is(':hover')) || ($('#barra_inferior').is(':hover'))) {
+    if (($('#barra_lateral').is(':hover')) || ($('#barra_inferior').is(':hover')) || ($('#menu_opciones').is(':hover'))) {
         
     } else {
         varXMouse = "x: " + parseInt((mouseX - posEjeX) / escalaCanvas);
@@ -308,15 +308,19 @@ function mouseMoved() {
     }
 }
 
+var opcionSeleccionadaDes = "select";
+
 function mouseDragged(ctx) {
-    if (($('#barra_lateral').is(':hover')) || ($('#barra_inferior').is(':hover'))) {
+    if (($('#barra_lateral').is(':hover')) || ($('#barra_inferior').is(':hover')) || ($('#menu_opciones').is(':hover'))) {
         
     } else {
-        posEjeX += ctx.movementX;
-        posEjeY += ctx.movementY;
-        inicioXGrid += ctx.movementX;
-        inicioYGrid += ctx.movementY;
-        redraw();
+        if (opcionSeleccionadaDes == "move") {
+            posEjeX += ctx.movementX;
+            posEjeY += ctx.movementY;
+            inicioXGrid += ctx.movementX;
+            inicioYGrid += ctx.movementY;
+            redraw();
+        }
     }
 }
 
@@ -341,4 +345,52 @@ function mouseDragged(ctx) {
     redraw();
 }*/
 
+$("#svg_centrar").on({
+    click: function () {
+        posEjeX = 700;
+        posEjeY = 400;
+        inicioXGrid = 0;
+        inicioYGrid = 0;
+        redraw();
+    }
+});
+
+$("#circulo_opc").on({
+    click: function () {
+        if ($("#herramientas_opc").css("height") == "0px") {
+            $(this).css("border-radius", "25px 25px 0px 0px");
+            $("#svg_herramientas").css("opacity", "0");
+            setTimeout(function(){
+                $("#herramientas_opc").css("height", "80px");
+            }, 100);
+            $(this).removeClass("herramientas_inactivas");
+        } else {
+            $("#herramientas_opc").css("height", "0px");
+            setTimeout(function(){
+                $("#circulo_opc").css("border-radius", "25px 25px 25px 25px");
+                $("#circulo_opc").addClass("herramientas_inactivas");
+                $("#svg_herramientas").css("opacity", "1");
+            }, 400);
+        }
+        
+    }
+});
+
+$("#herra_select").on({
+    click: function () {
+        opcionSeleccionadaDes = "select";
+        $(this).css("opacity", "1");
+        $("#herra_move").css("opacity", "0.2");
+        $("canvas").css("cursor", "default");
+    }
+});
+
+$("#herra_move").on({
+    click: function () {
+        opcionSeleccionadaDes = "move";
+        $(this).css("opacity", "1");
+        $("#herra_select").css("opacity", "0.2");
+        $("canvas").css("cursor", "grab");
+    }
+});
 

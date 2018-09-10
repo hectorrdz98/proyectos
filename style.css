@@ -11,6 +11,85 @@ body {
     overflow: hidden;
 }
 
+canvas {
+    cursor: default;
+}
+
+#menu_opciones {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+#circulo_opc {
+    width: 40px;
+    height: 40px;
+    border-radius: 25px 25px 25px 25px;
+    background-color: #33334d;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-transition: all 0.2s;
+}
+
+#herra_select {
+    width: 40px;
+    height: 30px;
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+#herra_select:hover {
+    opacity: 1;
+}
+
+#herra_select svg path{
+    fill: white;
+}
+
+#herra_move {
+    width: 40px;
+    height: 30px;
+    opacity: 0.2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#herra_move:hover {
+    opacity: 1;
+}
+
+#herra_move svg path{
+    fill: white;
+}
+
+.herramientas_inactivas {
+    opacity: 0.2;
+}
+
+.herramientas_inactivas:hover {
+    opacity: 1;
+}
+
+#herramientas_opc {
+    width: 100%;
+    opacity: 1;
+    height: 0px;
+    background-color: #33334d;
+    border-radius: 0px 0px 25px 25px;
+}
+
+#svg_herramientas path {
+    fill: white;
+}
+
 #cont_bl {
     position: absolute;
     left: 0;
@@ -285,7 +364,7 @@ body {
 }
 
 #detalles_bi {
-    width: calc(100% - 300px - 100px);
+    width: calc(100% - 300px - 100px - 60px);
     height: 100%;
     display: flex;
     align-items: center;
@@ -341,6 +420,26 @@ input::-webkit-inner-spin-button {
     text-align: center;
     border-radius: 5px;
     font-size: 10px;
+}
+
+#controles_bi {
+    width: 60px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#svg_centrar {
+    cursor: pointer;
+}
+
+#svg_centrar path {
+    fill: white;
+}
+
+#svg_centrar:hover path{
+    fill: #33334d;
 }
 
 #coords {
