@@ -60,22 +60,26 @@ $("#agregarVector").on({
             colorV[0] = colorV[0].substring(4, colorV[0].length);
             colorV[2] = colorV[2].substring(0, colorV[2].length - 1);
             
-            asociarVector(
-                colorV,
-                parseInt($("#valX1input").val()),
-                parseInt($("#valY1input").val()),
-                parseInt($("#valX2input").val()),
-                parseInt($("#valY2input").val())
-            );
-            
             arrayVectores[$("#valNombreinput").val()] = {
                 color: colorV,
                 colorUF: $("#selec_color").css("background-color"),
                 x1: parseInt($("#valX1input").val()),
                 x2: parseInt($("#valX2input").val()),
                 y1: parseInt($("#valY1input").val()),
-                y2: parseInt($("#valY2input").val())
+                y2: parseInt($("#valY2input").val()),
+                rotacion: (Math.atan((parseInt($("#valY2input").val()) - parseInt($("#valY1input").val())) / (parseInt($("#valX2input").val()) - parseInt($("#valX1input").val()))) * 180 / Math.PI)
             }
+            
+            asociarVector(
+                colorV,
+                parseInt($("#valX1input").val()),
+                parseInt($("#valY1input").val()),
+                parseInt($("#valX2input").val()),
+                parseInt($("#valY2input").val()),
+                (Math.atan((parseInt($("#valY2input").val()) - parseInt($("#valY1input").val())) / (parseInt($("#valX2input").val()) - parseInt($("#valX1input").val()))) * 180 / Math.PI)
+            );
+            
+            
             //print(arrayVectores);
         }
     }
@@ -103,9 +107,60 @@ var inicioYGrid = 0;
 
 var vectoresDibujados = [];
 
-function asociarVector(color, x1, y1, x2, y2) {
+function asociarVector(color, x1, y1, x2, y2, rotacion) {
+    
     stroke(parseInt(color[0]), parseInt(color[1]), parseInt(color[2]));
     line(posEjeX + x1*escalaCanvas, posEjeY - y1*escalaCanvas, posEjeX + x2*escalaCanvas, posEjeY - y2*escalaCanvas);
+    
+    push();
+    
+    translate(posEjeX + x2*escalaCanvas, posEjeY - y2*escalaCanvas);
+    
+    if ((x2>=0)&&(y2>=0)) {
+        push();
+        rotate(45-rotacion);
+        line(-20, 0, 0, 0);
+        line(0, 0, 0, 20);
+        pop();
+        fill(0);
+        text("( " + x2 + ", " + y2 + " )", 10, -10);
+    } else if ((x2>=0)&&(y2<0)) {
+        push();
+        rotate(-(90+(rotacion-45))+90);
+        line(-20, 0, 0, 0);
+        pop();
+        push();
+        rotate(-(90+(rotacion-45))+90);
+        line(0, 0, 0, 20);
+        pop();
+        fill(0);
+        text("( " + x2 + ", " + y2 + " )", 10, 10);
+    } else if ((x2<0)&&(y2>=0)) {
+        push();
+        rotate((-90-(rotacion-45))-90);
+        line(-20, 0, 0, 0);
+        pop();
+        push();
+        rotate((-90-(rotacion-45))-90);
+        line(0, 0, 0, 20);
+        pop();
+        fill(0);
+        text("( " + x2 + ", " + y2 + " )", -50, -10);
+    } else if ((x2<0)&&(y2<0)) {
+        push();
+        rotate(180-(rotacion-45));
+        line(-20, 0, 0, 0);
+        pop();
+        push();
+        rotate(180-(rotacion-45));
+        line(0, 0, 0, 20);
+        pop();
+        fill(0);
+        text("( " + x2 + ", " + y2 + " )", -50, 10);
+    }
+    
+    pop();
+    
 }
 
 function setup() {
@@ -113,6 +168,7 @@ function setup() {
     //frameRate(60);
     createCanvas(maxTamCanvas, maxTamCanvas);
     noLoop();
+    angleMode(DEGREES);
 }
 
 function draw() {
@@ -170,6 +226,58 @@ function draw() {
     for (var key in arrayVectores) {
         stroke(arrayVectores[key]["color"][0], arrayVectores[key]["color"][1], arrayVectores[key]["color"][2]);
         line(posEjeX + arrayVectores[key]["x1"]*escalaCanvas, posEjeY - arrayVectores[key]["y1"]*escalaCanvas, posEjeX + arrayVectores[key]["x2"]*escalaCanvas, posEjeY - arrayVectores[key]["y2"]*escalaCanvas);
+        
+    push();
+    
+        rotacion = (Math.atan((arrayVectores[key]["y2"] - arrayVectores[key]["y1"]) / (arrayVectores[key]["x2"] - arrayVectores[key]["x1"])) * 180 / Math.PI);
+        
+    translate(posEjeX + arrayVectores[key]["x2"]*escalaCanvas, posEjeY - arrayVectores[key]["y2"]*escalaCanvas);
+    
+    if ((arrayVectores[key]["x2"]>=0)&&(arrayVectores[key]["y2"]>=0)) {
+        push();
+        rotate(45-rotacion);
+        line(-20, 0, 0, 0);
+        line(0, 0, 0, 20);
+        pop();
+        fill(0);
+        text("( " + arrayVectores[key]["x2"] + ", " + arrayVectores[key]["y2"] + " )", 10, -10);
+    } else if ((arrayVectores[key]["x2"]>=0)&&(arrayVectores[key]["y2"]<0)) {
+        push();
+        rotate(-(90+(rotacion-45))+90);
+        line(-20, 0, 0, 0);
+        pop();
+        push();
+        rotate(-(90+(rotacion-45))+90);
+        line(0, 0, 0, 20);
+        pop();
+        fill(0);
+        text("( " + arrayVectores[key]["x2"] + ", " + arrayVectores[key]["y2"] + " )", 10, 10);
+    } else if ((arrayVectores[key]["x2"]<0)&&(arrayVectores[key]["y2"]>=0)) {
+        push();
+        rotate((-90-(rotacion-45))-90);
+        line(-20, 0, 0, 0);
+        pop();
+        push();
+        rotate((-90-(rotacion-45))-90);
+        line(0, 0, 0, 20);
+        pop();
+        fill(0);
+        text("( " + arrayVectores[key]["x2"] + ", " + arrayVectores[key]["y2"] + " )", -50, -10);
+    } else if ((arrayVectores[key]["x2"]<0)&&(arrayVectores[key]["y2"]<0)) {
+        push();
+        rotate(180-(rotacion-45));
+        line(-20, 0, 0, 0);
+        pop();
+        push();
+        rotate(180-(rotacion-45));
+        line(0, 0, 0, 20);
+        pop();
+        fill(0);
+        text("( " + arrayVectores[key]["x2"] + ", " + arrayVectores[key]["y2"] + " )", -50, 10);
+    }
+    
+    pop();
+        
     };
     
 }
@@ -242,22 +350,24 @@ function agregarBitaVector(nombreV, x1V, x2V, y1V, y2V, colorV) {
     colorV[0] = colorV[0].substring(4, colorV[0].length);
     colorV[2] = colorV[2].substring(0, colorV[2].length - 1);
             
-    asociarVector(
-        colorV,
-        x1V,
-        y1V,
-        x2V,
-        y2V
-    );
+            arrayVectores[nombreV] = {
+                color: colorV,
+                colorUF: formaColor,
+                x1: x1V,
+                x2: x2V,
+                y1: y1V,
+                y2: y2V,
+                rotacion: (Math.atan((y2V - y1V) / (x2V - x1V)) * 180 / Math.PI)
+            }
             
-    arrayVectores[nombreV] = {
-        color: colorV,
-        colorUF: formaColor,
-        x1: x1V,
-        x2: x2V,
-        y1: y1V,
-        y2: y2V
-    }
+            asociarVector(
+                colorV,
+                x1V,
+                y1V,
+                x2V,
+                y2V,
+                (Math.atan((y2V - y1V) / (x2V - x1V)) * 180 / Math.PI)
+            );
 }
 
 $(document).on('click', '#ready_agregar_op', function(){
@@ -374,6 +484,18 @@ $("#circulo_opc").on({
         }
         
     }
+});
+
+$("canvas").mousedown(function() {
+   if (opcionSeleccionadaDes == "move") {
+       $("canvas").css("cursor", "-webkit-grabbing !important");
+   } 
+});
+
+$("canvas").mouseup(function() {
+   if (opcionSeleccionadaDes == "move") {
+       $("canvas").css("cursor", "grab");
+   } 
 });
 
 $("#herra_select").on({
